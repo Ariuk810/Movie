@@ -3,11 +3,11 @@ import { Sumicons } from "../_icons/Sum";
 import { Trailer } from "../_icons/Trailer";
 
 export const MovieSlide = (props) => {
-  const { title, exp, imgSrc, rate } = props;
+  const { title, exp, imgSrc, rate, handleSlideChange } = props;
   console.log(imgSrc);
 
   return (
-    <div className="relative">
+    <div className="relative" style={{ width: "100vw" }}>
       <img src={imgSrc} className="mt-[20px] w-[100vw]"></img>
       <div className="absolute top-[20%] left-[10%]">
         <h1 className="text-white text-[40px]">Now Playing:</h1>
@@ -24,7 +24,10 @@ export const MovieSlide = (props) => {
         </div>
       </div>
       <div className="absolute top-[50%] left-[95%]">
-        <button className="flex justify-center items-center bg-white rounded-full w-[60px] h-[60px] ">
+        <button
+          onClick={handleSlideChange}
+          className="flex justify-center items-center bg-white rounded-full w-[60px] h-[60px] "
+        >
           <Sumicons />
         </button>
       </div>

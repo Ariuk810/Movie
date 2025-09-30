@@ -15,6 +15,7 @@ export const HeroSection = (props) => {
   };
   const [upcomingMoviesData, setUpcomingMoviesData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [slideNumber, setSlideNumber] = useState(0);
 
   const getData = async () => {
     setLoading(true);
@@ -23,29 +24,30 @@ export const HeroSection = (props) => {
     setUpcomingMoviesData(jsonData.results);
     setLoading(false);
   };
-  console.log("loading", loading);
-  console.log("movieesnow playing", upcomingMoviesData);
 
   useEffect(() => {
     getData();
   }, []);
 
+  const handleSlideChange = () => {
+    setSlideNumber(slideNumber + 1);
+  };
+
   if (loading) return <div>....loading</div>;
   return (
-    <div className="w-full overflow-hidden ">
-      <div className="w-[300%] flex">
-        {upcomingMoviesData.slice(0, 3).map((movie, index) => {
-          return (
-            <MovieSlide
-              key={index}
-              title={movie.title}
-              rate={Math.round(movie.vote_average)}
-              exp={movie.overview}
-              imgSrc={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
-            />
-          );
-        })}
-      </div>
+    <div className="w-full overflow-x-auto ">
+      {upcomingMoviesData
+        .slice(slideNumber, slideNumber + 1)
+        .map((movie, index) => (
+          <MovieSlide
+            title={movie.title}
+            rate={Math.round(movie.vote_average)}
+            exp={movie.overview}
+            handleSlideChange={handleSlideChange}
+            key={index}
+            imgSrc={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+          />
+        ))}
     </div>
   );
 };

@@ -56,6 +56,7 @@ export const MovieList = (props) => {
                 title={movie.title}
                 rating={Math.round(movie.vote_average)}
                 imgSrc={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+                movieId={movie.id}
               />
             );
           })}
